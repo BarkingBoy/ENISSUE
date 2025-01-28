@@ -28,10 +28,9 @@ app.post("/views/create", (req, res) => {
   });
   res.redirect("/");
 });
-
 app.post("/issues/delete", (req, res) => {
   const issueId = parseInt(req.body.issueId);
-  issues = issues.filter((issue) => issue.id == issueId);
+  issues = issues.filter((issue) => issue.id !== issueId); 
   res.redirect("/");
 });
 
