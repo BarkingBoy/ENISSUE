@@ -26,6 +26,7 @@ app.post("/views/create", (req, res) => {
     dateCrea: new Date().toLocaleDateString(), 
     id: issues.length++,
   });
+  console.log(issues);
   res.redirect("/");
 });
 app.post("/issues/delete", (req, res) => {
