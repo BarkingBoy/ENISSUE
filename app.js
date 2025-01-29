@@ -29,10 +29,9 @@ app.post("/views/create", (req, res) => {
   console.log(issues);
   res.redirect("/");
 });
-
 app.post("/issues/delete", (req, res) => {
   const issueId = parseInt(req.body.issueId);
-  issues = issues.filter((issue) => issue.id !== issueId);
+  issues = issues.filter((issue) => issue.id !== issueId); 
   res.redirect("/");
 });
 
