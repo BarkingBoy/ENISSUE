@@ -55,6 +55,11 @@ app.use((req, res, next) => {
     }
 });
 
+app.use((err,req,res,next)=> {
+  console.error(err.stack);
+  res.status(err.status || 500).redirect("/error")
+})
+
 
 console.log(issues.dateCrea);
 console.log(issues.etat);
