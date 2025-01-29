@@ -1,7 +1,9 @@
 const e = require("express");
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = process.env.port || 3000;
+
+require("dotenv").config();
 
 // Configuration
 app.set("views", "./public/views");
