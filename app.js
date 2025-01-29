@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
   res.render("index", { issues });
 });
 
+
 app.post("/views/create", (req, res) => {
   const { auteur, probleme, description } = req.body;
   issues.push({
@@ -38,6 +39,22 @@ app.post("/issues/delete", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+// Definir le chemin vers la page d'erreur
+app.get('/404', (req, res) => {
+    res.render('404'); 
+});
+
+// Gestion de la page d'erreur
+app.use((req, res, next) => {
+    
+    if (req.path !== "/404") {
+      res.status(404).redirect("/404");
+    } else {
+      next();
+    }
+});
+
 
 console.log(issues.dateCrea);
 console.log(issues.etat);
