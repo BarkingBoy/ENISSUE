@@ -67,7 +67,7 @@ router.post("/issues/detail/:id", async (req, res) => {
     );
 
     if (response.modifiedCount === 0) {
-      return res.status(404).redirect("/404");
+      return res.redirect("/");
     }
 
     res.redirect("/");
