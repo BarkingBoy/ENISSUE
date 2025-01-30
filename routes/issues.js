@@ -6,20 +6,6 @@ const Issue= require("../models/issue");
 
 // Middleware pour passer l'instance db aux routes
 const setupRouter = (db) => {
-  //Schema mongoose
-  // const issueSchema = new mongoose.Schema({
-  //   auteur: String,
-  //   probleme: String,
-  //   description: String,
-  //   Etat: {
-  //     type: String,
-  //     default: "Nouveau",
-  //   },
-  //   dateCrea: { type: String, default: new Date().toLocaleDateString() },
-  //   id: Number,
-  // });
-
-  //Modele
 
   // Route pour afficher la liste des issues
   router.get("/", async (req, res) => {
@@ -61,7 +47,7 @@ const setupRouter = (db) => {
         return res.status(404).redirect("/404");
       }
 
-      res.render("detail", { issue });
+      res.render("detail", { Issue });
     } catch (err) {
       console.error(err);
       res.status(500).redirect("/error");
@@ -91,7 +77,8 @@ const setupRouter = (db) => {
 
       res.redirect("/");
     } catch (err) {
-      next(err);
+      console.error(err);
+      res.status(500).redirect("/error");
     }
   });
 
