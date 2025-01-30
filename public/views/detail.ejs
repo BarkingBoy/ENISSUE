@@ -8,7 +8,7 @@
   </head>
 <body>
 <h1>Modifier une issue</h1>
-<form action="/detail/<%=issue._id%>" method="post" >
+<form action="issues/detail/<%=issue.id%>" method="post" >
 <input type="text" name="auteur" value="<%= issue.auteur %>" required>
 <input type="text" name="probleme" value="<%= issue.probleme %>" required>
 <input type="text" name="description" value="<%= issue.description %>" required>

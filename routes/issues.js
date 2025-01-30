@@ -41,13 +41,13 @@ const setupRouter = (db) => {
   router.get("/views/detail/:id", async (req, res) => {
     try {
       const issueId = parseInt(req.params.id);
-      const issue = await issue.findOne({ id: issueId });
+      const issue = await Issue.findOne({ id: issueId });
 
       if (!issue) {
         return res.status(404).redirect("/404");
       }
 
-      res.render("detail", { Issue });
+      res.render("/issues/detail/:id", { issue });
     } catch (err) {
       console.error(err);
       res.status(500).redirect("/error");
@@ -63,7 +63,7 @@ const setupRouter = (db) => {
       const response = await Issue.updateOne(
         { id: issueId },
         {
-          set: {
+          $set: {
             auteur,
             probleme,
             description,
