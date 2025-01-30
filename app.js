@@ -1,18 +1,15 @@
 const express = require("express");
-const issuesRouter = require("../ENISSUE/routes/issues");
+const mongoose = require("mongoose");
+const issuesRouter = require("./routes/issues");
+const authRouter = require("./routes/auth"); // Add this line
+require("dotenv").config();
+
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoose = require("mongoose");
-app.use(express.static('public')); // Link to your static files (like CSS and JS)
-
-require("dotenv").config();
 
 // Database connection
 mongoose
-  .connect("mongodb://localhost:27017/enissue", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect("mongodb://127.0.0.1:27017/enissue")
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -21,8 +18,10 @@ app.set("views", "./public/views");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Routes
+// Mount routers
+app.use("/", authRouter); // Add this line BEFORE issuesRouter
 app.use("/", issuesRouter);
 
 // Error handling
@@ -35,5 +34,4 @@ app.use((err, req, res, next) => {
   res.status(500).redirect("/error");
 });
 
-// Start server
 app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Issue = require("../models/issue");
+const accountModel = require('../models/accountSchema'); // Adjust path as needed
+const { LoginExpress } = require("login-express");
 
 
 
@@ -15,9 +17,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/login", (req, res) => {
-  res.render("login"); // Remove the leading slash
-});
 
 // Create new issue
 router.post("/views/create", async (req, res) => {
@@ -99,5 +98,10 @@ router.post("/issues/delete", async (req, res) => {
         res.status(500).redirect("/error");
       }
   });
+
+
+
+
+
 
 module.exports = router;
