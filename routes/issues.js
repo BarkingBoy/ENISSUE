@@ -40,22 +40,26 @@ router.post("/views/create", async (req, res) => {
   }
 });
 
-// View issue details
-router.get("/views/detail/:id", async (req, res) => {
-  try {
-    const issueId = parseInt(req.params.id);
-    const foundIssue = await Issue.findOne({ id: issueId });
+  // Route pour voir les détails d'une issue
+  router.get("/views/detail/:id", async (req, res) => {
+    try {
+      const issueId = parseInt(req.params.id);
+     console.log("ID recherché:", issueId);
 
-    if (!foundIssue) {
-      return res.status(404).redirect("/404");
+      const issue = await Issue.findOne({ id: issueId });
+      console.log("Issue trouvée:", issue);
+
+      if (!issue) {
+        console.log("Aucune issue trouvée");
+        return res.status(404).redirect("/404");
+      }
+
+      res.render("detail.ejs", { issue });
+    } catch (err) {
+      console.error("Erreur lors de la recherche:", err);
+      res.status(500).redirect("/error");
     }
-
-    res.render("detail", { issue: foundIssue });
-  } catch (err) {
-    console.error(err);
-    res.status(500).redirect("/error");
-  }
-});
+  });
 
 // Update issue
 router.post("/issues/detail/:id", async (req, res) => {
@@ -91,9 +95,9 @@ router.post("/issues/delete", async (req, res) => {
       res.status(404).send("Error: No issue found");
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).redirect("/error");
-  }
-});
+        console.error(err);
+        res.status(500).redirect("/error");
+      }
+  });
 
 module.exports = router;

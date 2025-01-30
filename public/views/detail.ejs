@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Accueil</title>
+    <title>Détail de l'issue</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   </head>
+<<<<<<< HEAD
 <body>
 <h1>Modifier une issue</h1>
-<form action="/detail/<%=issue._id%>" method="post" >
+<form action="issues/detail/<%=issue.id%>" method="post" >
 <input type="text" name="auteur" value="<%= issue.auteur %>" required>
 <input type="text" name="probleme" value="<%= issue.probleme %>" required>
 <input type="text" name="description" value="<%= issue.description %>" required>
@@ -16,4 +17,65 @@
 <a href="/">Retour à la liste</a>
 </form>
 </body>
+=======
+  <body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h1 class="text-2xl font-bold mb-4">Détail de l'issue #<%= issue.id %></h1>
+        
+        <form action="/issues/detail/<%= issue.id %>" method="post" class="space-y-4">
+          <div>
+            <h2 class="font-semibold">Auteur</h2>
+            <p><%= issue.auteur %></p>
+          </div>
+          
+          <div>
+            <h2 class="font-semibold">Problème</h2>
+            <input 
+              type="text" 
+              name="probleme" 
+              value="<%= issue.probleme %>"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              required
+            >
+          </div>
+          
+          <div>
+            <h2 class="font-semibold">Description</h2>
+            <textarea 
+              name="description" 
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              required
+            ><%= issue.description %></textarea>
+          </div>
+          
+          <div>
+            <h2 class="font-semibold">État</h2>
+            <p><%= issue.Etat %></p>
+          </div>
+          
+          <div>
+            <h2 class="font-semibold">Date de création</h2>
+            <p><%= issue.dateCrea %></p>
+          </div>
+
+          <div class="mt-6 flex gap-4">
+            <button 
+              type="submit"
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Mettre à jour
+            </button>
+            <a 
+              href="/" 
+              class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+            >
+              Retour à la liste
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+>>>>>>> 8fd212621ac4fb8c4ed9d8b8cde23d3a49afa2d9
 </html>
