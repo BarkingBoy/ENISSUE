@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Issue = require("../models/issue");
 
+
+
 // List all issues
 router.get("/", async (req, res) => {
   try {
@@ -11,6 +13,10 @@ router.get("/", async (req, res) => {
     console.error(err);
     res.status(500).redirect("/error");
   }
+});
+
+router.get("/login", (req, res) => {
+  res.render("login"); // Remove the leading slash
 });
 
 // Create new issue
