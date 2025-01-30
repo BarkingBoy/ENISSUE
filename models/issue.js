@@ -9,4 +9,4 @@ const issueSchema = new mongoose.Schema({
   id: { type: Number, required: true },
 });
 
-module.exports = mongoose.model("issue", issueSchema);
+module.exports = mongoose.model("Issue", issueSchema);

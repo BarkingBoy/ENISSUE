@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const {issue} = require("./models/issue");
+const Issue= require("../models/issue");
 
 
 // Middleware pour passer l'instance db aux routes
@@ -20,7 +20,6 @@ const setupRouter = (db) => {
   // });
 
   //Modele
-  const Issue = mongoose.model("Issue", issueSchema);
 
   // Route pour afficher la liste des issues
   router.get("/", async (req, res) => {
