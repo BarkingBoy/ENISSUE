@@ -1,92 +1,30 @@
-const e = require("express");
-const { MongoClient } = require("mongodb");
 const express = require("express");
-const issue = require("./models/issue");
+const issuesRouter = require("./routes/issues");
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
+const mongoose = require("mongoose");
+
 
 require("dotenv").config();
 
-const uri = "mongodb://localhost:27017/enissue";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-const db = client.db("enissue");
-
-client
-  .connect()
-  .then(() => {
-    console.log("Connected successfully to server");
+const db =mongoose
+  .connect("mongodb://localhost:27017/enissue", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
-  .catch((err) => {
-    console.log("Error connecting to server:", err);
-  });
-
-
+  .then(() => console.log("Connected successfully to server"))
+  .catch((err) => console.log("Error connecting to server:", err));
 
 // Configuration
 app.set("views", "./public/views");
 app.set("view engine", "ejs");
-app.use(express.static("public")); // For serving static files
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-let issues = [];
 
-// Routes
-app.get("/", (req, res) => {
-  
-    db.collection('issues').find().toArray().then((issues)=>{
-res.render("index.ejs", {issues:issues});
-   });
-});
+// Utilisation du router avec la base de données
+app.use("/", issuesRouter(db));
 
-
-app.post("/views/create", (req, res) => {
-  const { auteur, probleme, description } = req.body;
-   db.collection('issues').insertOne({
-    auteur:auteur,
-    probleme:probleme,
-    description:description,
-    Etat: "Nouveau", 
-    dateCrea: new Date().toLocaleDateString(), 
-    id: issues.length++,
-  });
-
-  console.log(issues);
-  res.redirect("/");
-});
-
-// app.get("/views/detail/:id", (req, res) => {
-//   const issueId = req.params.id;
-    
-//   res.render("detail", { issue: issues[issueId] });
-// });
-app.get("/views/detail/:id", async (req, res) => {
-  const issue = await issue.findById(req.params.id);
-  console.log(issue);
-  res.render("edit", { issue });
-});
-
-
-app.post("/views/detail/:id", async (req, res) => {
-  await issue.findByIdAndUpdate(req.params.id, req.body);
-  res.redirect("/");
-});
-
-app.post("/issues/delete", (req, res) => {
-  const issueId = parseInt(req.body.issueId);
-
-  db.collection('issues').deleteOne({id:issueId}).then((response) => {
- if (response.deletedCount === 1) {
- res.redirect('/')
- } else {
- res.status(404).send('Error: No city found')
- }
-})
-});
-
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
 
 // Definir le chemin vers la page d'erreur
 app.get('/404', (req, res) => {
@@ -108,6 +46,12 @@ app.use((err,req,res,next)=> {
   res.status(err.status || 500).redirect("/error")
 })
 
-
-console.log(issues.dateCrea);
-console.log(issues.etat);
+ // Démarrage du serveur
+ try{
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`)
+    })
+  }
+  catch(err) {
+    console.log("Error connecting to server: ", err)
+  };
