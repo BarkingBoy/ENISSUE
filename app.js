@@ -29,11 +29,27 @@ app.post("/views/create", (req, res) => {
   console.log(issues);
   res.redirect("/");
 });
+app.get("/views/detail/:id", (req, res) => {
+  const issueId = req.params.id;
+    
+  res.render("detail", { issue: issues[issueId] });
+});
+// app.post("/issues/detail/:id", (req, res) => {
+//   const { auteur, probleme, description } = req.body;
+//   issues.push({
+//     auteur,
+//     probleme,
+//     description,
+//   });
+//   res.redirect("/");
+// });
+
 app.post("/issues/delete", (req, res) => {
   const issueId = parseInt(req.body.issueId);
   issues = issues.filter((issue) => issue.id !== issueId); 
   res.redirect("/");
 });
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
