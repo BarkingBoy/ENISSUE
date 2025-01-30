@@ -1,6 +1,7 @@
 const e = require("express");
 const { MongoClient } = require("mongodb");
 const express = require("express");
+const issue = require("./models/issue");
 const app = express();
 const port = process.env.port || 3000;
 
@@ -53,21 +54,22 @@ app.post("/views/create", (req, res) => {
   res.redirect("/");
 });
 
-app.get("/views/detail/:id", (req, res) => {
-  const issueId = req.params.id;
+// app.get("/views/detail/:id", (req, res) => {
+//   const issueId = req.params.id;
     
-  res.render("detail", { issue: issues[issueId] });
-});
-// app.post("/issues/detail/:id", (req, res) => {
-//   const { auteur, probleme, description } = req.body;
-//   issues.push({
-//     auteur,
-//     probleme,
-//     description,
-//   });
-//   res.redirect("/");
+//   res.render("detail", { issue: issues[issueId] });
 // });
+app.get("/views/detail/:id", async (req, res) => {
+  const issue = await issue.findById(req.params.id);
+  console.log(issue);
+  res.render("edit", { issue });
+});
 
+
+app.post("/views/detail/:id", async (req, res) => {
+  await issue.findByIdAndUpdate(req.params.id, req.body);
+  res.redirect("/");
+});
 
 app.post("/issues/delete", (req, res) => {
   const issueId = parseInt(req.body.issueId);
