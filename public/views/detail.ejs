@@ -6,6 +6,18 @@
     <title>Détail de l'issue</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   </head>
+<<<<<<< HEAD
+<body>
+<h1>Modifier une issue</h1>
+<form action="issues/detail/<%=issue.id%>" method="post" >
+<input type="text" name="auteur" value="<%= issue.auteur %>" required>
+<input type="text" name="probleme" value="<%= issue.probleme %>" required>
+<input type="text" name="description" value="<%= issue.description %>" required>
+<button type="submit">Mettre à jour</button>
+<a href="/">Retour à la liste</a>
+</form>
+</body>
+=======
   <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
       <div class="bg-white rounded-lg shadow p-6">
@@ -65,4 +77,5 @@
       </div>
     </div>
   </body>
+>>>>>>> 8fd212621ac4fb8c4ed9d8b8cde23d3a49afa2d9
 </html>

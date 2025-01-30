@@ -3,6 +3,7 @@ const issuesRouter = require("../ENISSUE/routes/issues");
 const app = express();
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
+app.use(express.static('public')); // Link to your static files (like CSS and JS)
 
 require("dotenv").config();
 
