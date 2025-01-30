@@ -7,59 +7,13 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   </head>
 <body>
-  <section class="text-gray-600 body-font overflow-hidden">
-    <div class="container px-5 py-24 mx-auto">
-    
-        <form action="/views/create" method="POST" class="space-y-6">
-          <div>
-            <label for="auteur" class="block text-lg font-medium text-gray-700">
-              Auteur :
-            </label>
-            <input
-              type="text"
-              id="auteur"
-              name="auteur"
-              value="value"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              required
-            />
-          </div>
-          <div>
-            <label for="probleme" class="block text-lg font-medium text-gray-700">
-              Titre :
-            </label>
-            <input
-              type="text"
-              id="probleme"
-              name="probleme"
-              value="value"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              required
-            />
-          </div>
-
-          <div>
-            <label for="description" class="block text-lg font-medium text-gray-700">
-              Description du problème:
-            </label>
-            <textarea
-              name="description"
-              id="description"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <button
-              type="submit"
-              class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              Envoyer
-            </button>
-          </div>
-        </form>
-  
-    </div>
-  </section>
+<h1>Modifier une issue</h1>
+<form action="/detail/<%=issue._id%>" method="post" >
+<input type="text" name="auteur" value="<%= issue.auteur %>" required>
+<input type="text" name="probleme" value="<%= issue.probleme %>" required>
+<input type="text" name="description" value="<%= issue.description %>" required>
+<button type="submit">Mettre à jour</button>
+<a href="/">Retour à la liste</a>
+</form>
 </body>
 </html>

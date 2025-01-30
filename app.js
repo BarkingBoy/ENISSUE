@@ -21,8 +21,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+
 // Utilisation du router avec la base de données
 app.use("/", issuesRouter(db));
+
 
 // Definir le chemin vers la page d'erreur
 app.get('/404', (req, res) => {
