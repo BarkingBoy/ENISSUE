@@ -1,22 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const {issue} = require("./models/issue");
 
 
 // Middleware pour passer l'instance db aux routes
 const setupRouter = (db) => {
   //Schema mongoose
-  const issueSchema = new mongoose.Schema({
-    auteur: String,
-    probleme: String,
-    description: String,
-    Etat: {
-      type: String,
-      default: "Nouveau",
-    },
-    dateCrea: { type: String, default: new Date().toLocaleDateString() },
-    id: Number,
-  });
+  // const issueSchema = new mongoose.Schema({
+  //   auteur: String,
+  //   probleme: String,
+  //   description: String,
+  //   Etat: {
+  //     type: String,
+  //     default: "Nouveau",
+  //   },
+  //   dateCrea: { type: String, default: new Date().toLocaleDateString() },
+  //   id: Number,
+  // });
 
   //Modele
   const Issue = mongoose.model("Issue", issueSchema);
